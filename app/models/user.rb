@@ -26,7 +26,9 @@ class User < ActiveRecord::Base
   end  
 
   def role_on(project)
-    roles.find_by(project_id: project).try(:name)
+    roles.find_by(project_id: project).try(:role)
+    # EN EL CÓDIGO DEL LIBRO HAY UN ERROR, PROPONE
+    #roles.find_by(project_id: project).try(:name)
   end
 
 end
