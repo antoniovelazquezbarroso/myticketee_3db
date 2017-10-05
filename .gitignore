@@ -17,3 +17,8 @@
 /tmp
 
 /.c9/*
+
+# Ignore precompiled assets
+/public/assets/*
+
+.DS_Store
