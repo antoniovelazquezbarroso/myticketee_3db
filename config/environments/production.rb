@@ -76,4 +76,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+# FOR STRUCTURED LOGGING IN JSON FORMAT
+# SEE https://kartar.net/2015/12/structured-logging/          
+  config.log_level = :info
+  config.lograge.enabled = true
+  config.lograge.formatter = Lograge::Formatters::Logstash.new
+  config.logger = LogStashLogger.new(type: :file, path: "log/production.json", sync: true)
+  
 end

@@ -52,7 +52,11 @@ gem "simple_form", "~> 3.1.0"
 gem "devise", "~> 3.4.1"
 gem "pundit", "~> 0.3.0"
 
-
+# FOR STRUCTURED LOGGING IN JSON FORMAT
+# SEE https://kartar.net/2015/12/structured-logging/
+gem 'lograge', group: :production
+gem 'logstash-event', group: :production
+gem 'logstash-logger', group: :production
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
