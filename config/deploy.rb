@@ -5,8 +5,8 @@ server '192.168.2.40', port: 22, roles: [:web, :app, :db], primary: true
 set :repo_url,        'git@github.com:antoniovelazquezbarroso/myticketee_mysql.git'
 set :application,     'railsapp'
 set :user,            'deployer'
-set :puma_threads,    [4, 16]
-set :puma_workers,    0
+set :puma_threads,    [1, 6]
+set :puma_workers,    2
 
 # Don't change these unless you know what you're doing
 set :pty,             true
@@ -20,9 +20,11 @@ set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.error.log"
 set :puma_error_log,  "#{release_path}/log/puma.access.log"
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
-set :puma_preload_app, true
+#set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+
+set :puma_conf,       "#{shared_path}/config/puma.rb"
 
 ## Defaults:
 # set :scm,           :git
@@ -32,7 +34,7 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 # set :keep_releases, 5
 
 ## Linked Files & Directories (Default None):
-set :linked_files, %w{config/database.yml config/secrets.yml config/railsapp_vhost.conf} # /config/puma.rb}
+set :linked_files, %w{config/database.yml config/secrets.yml config/railsapp_vhost.conf config/puma.rb}
 set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 namespace :puma do
@@ -75,9 +77,13 @@ namespace :deploy do
   end
 
   before :starting,     :check_revision
+  before :starting,     'setup:upload_yml'
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
+  after  :finishing,    'setup:seed_db'  
+  after  :finishing,    'setup:symlink_config'
   after  :finishing,    :restart
+  after  :finishing,    'setup:restart_nginx'
 end
 
 # ps aux | grep puma    # Get puma pid

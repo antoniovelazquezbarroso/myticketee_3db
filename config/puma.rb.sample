@@ -1,0 +1,29 @@
+#!/usr/bin/env puma
+
+directory '/opt/railsapp/current'
+rackup "/opt/railsapp/current/config.ru"
+environment 'production'
+
+tag ''
+
+pidfile "/opt/railsapp/shared/tmp/pids/puma.pid"
+state_path "/opt/railsapp/shared/tmp/pids/puma.state"
+stdout_redirect '/opt/railsapp/current/log/puma.error.log', '/opt/railsapp/current/log/puma.access.log', true
+
+
+threads 1, 6
+
+
+
+bind 'unix:///opt/railsapp/shared/tmp/sockets/railsapp-puma.sock'
+#bind 'tcp://0.0.0.0:9292'
+
+
+workers 2
+
+prune_bundler
+
+on_restart do
+  puts 'Refreshing Gemfile'
+  ENV["BUNDLE_GEMFILE"] = ""
+end

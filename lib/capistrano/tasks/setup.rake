@@ -7,7 +7,7 @@ namespace :setup do
       upload! StringIO.new(File.read("config/database.yml")), "#{shared_path}/config/database.yml"
       upload! StringIO.new(File.read("config/secrets.yml")), "#{shared_path}/config/secrets.yml"
       upload! StringIO.new(File.read("config/railsapp_vhost.conf")), "#{shared_path}/config/railsapp_vhost.conf"
-#      upload! StringIO.new(File.read("config/puma.rb")), "#{shared_path}/config/puma.rb"
+      upload! StringIO.new(File.read("config/puma.rb.sample")), "#{shared_path}/config/puma.rb"
     end
   end
 
@@ -29,5 +29,13 @@ namespace :setup do
       execute "ln -nfs #{shared_path}/config/railsapp_vhost.conf /etc/nginx/sites-enabled/#{fetch(:application)}_vhost.conf"
    end
   end
+
+  desc "Restart Nginx."
+  task :restart_nginx do
+    on roles(:web) do
+      execute "sudo /etc/init.d/nginx restart"
+   end
+  end
+
 
 end
