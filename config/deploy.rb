@@ -1,6 +1,7 @@
 # FOLLOWING https://www.digitalocean.com/community/tutorials/deploying-a-rails-app-on-ubuntu-14-04-with-capistrano-nginx-and-puma
 # Change these
 server '192.168.2.40', port: 22, roles: [:web, :app, :db], primary: true
+server '192.168.2.50', port: 22, roles: [:app]
 
 set :repo_url,        'git@github.com:antoniovelazquezbarroso/myticketee_mysql.git'
 set :application,     'railsapp'

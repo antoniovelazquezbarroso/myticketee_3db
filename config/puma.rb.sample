@@ -15,8 +15,8 @@ threads 1, 6
 
 
 
-bind 'unix:///opt/railsapp/shared/tmp/sockets/railsapp-puma.sock'
-#bind 'tcp://0.0.0.0:9292'
+#bind 'unix:///opt/railsapp/shared/tmp/sockets/railsapp-puma.sock'
+bind 'tcp://0.0.0.0:9292'
 
 
 workers 2

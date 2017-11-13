@@ -5,9 +5,11 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: root                        # Ubuntu 14.04 and Mac Desktop
-  password: root                        # Ubuntu 14.04
+  username: railsapp                    # Ubuntu 14.04 and Mac Desktop
+  password: railsapp                    # Ubuntu 14.04
   socket: /var/run/mysqld/mysqld.sock   # Ubuntu 14.04
+  host: 192.168.2.40
+  port: 3306
 #  password:                            # Mac Desktop
 #  socket: /tmp/mysql.sock              # Mac Desktop
 
