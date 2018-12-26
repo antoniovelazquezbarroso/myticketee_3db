@@ -6,10 +6,10 @@ default: &default
   encoding: utf8
   pool: 5
   username: root                        # Ubuntu 14.04 and Mac Desktop
-  password: root                        # Ubuntu 14.04
-  socket: /var/run/mysqld/mysqld.sock   # Ubuntu 14.04
-#  password:                            # Mac Desktop
-#  socket: /tmp/mysql.sock              # Mac Desktop
+#  password: root                        # Ubuntu 14.04
+#  socket: /var/run/mysqld/mysqld.sock   # Ubuntu 14.04
+  password:                            # Mac Desktop
+  socket: /tmp/mysql.sock              # Mac Desktop
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
